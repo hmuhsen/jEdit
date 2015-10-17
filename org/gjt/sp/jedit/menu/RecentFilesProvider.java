@@ -122,8 +122,8 @@ public class RecentFilesProvider implements DynamicMenuProvider
 					else
 					{
 						String fileName = tempMenuItem.getText();
-						boolean matchesStart = fileName.toLowerCase().startsWith(typedText.toLowerCase());
-						tempMenuItem.setEnabled(matchesStart);
+						boolean matchesContain = fileName.toLowerCase().contains(typedText.toLowerCase());
+						tempMenuItem.setEnabled(matchesContain);
 					}
 				}
 			}
