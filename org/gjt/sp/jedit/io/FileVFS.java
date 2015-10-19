@@ -244,6 +244,10 @@ public class FileVFS extends VFS
 			{
 				return DATE_FORMAT.format(new Date(modified));
 			}
+			else if (name.equals(EA_CREATED))
+			{
+				return DATE_FORMAT.format(new Date(created));
+			}
 			else
 			{
 				return super.getExtendedAttribute(name);
