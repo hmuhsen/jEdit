@@ -2324,7 +2324,7 @@ vfs.browser.status.append=Append only
 vfs.browser.status.rw=Read/write
 vfs.browser.size=Size
 vfs.browser.modified=Last modified
-vfs.browser.created=Created
+vfs.browser.created=Creation date
 
 vfs.browser.file_filter.glob=Glob File Filter
 vfs.browser.file_filter.dir_only=Directories Only
@@ -2589,7 +2589,7 @@ plugin-manager.remove-failed.message=The plugin {0}\n\
 fileprop.name=Name
 fileprop.path=Path
 fileprop.lastmod=Last Modified
-fileprop.created=Created
+fileprop.created=Creation Date
 fileprop.size=Size
 fileprop.properties=Properties
 fileprop.readable=Readable
