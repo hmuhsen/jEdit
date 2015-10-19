@@ -216,6 +216,7 @@ public class FileVFS extends VFS
 		 */
 		@Deprecated
 		public long modified;
+		public long created;
 
 		//{{{ LocalFile() class
 		public LocalFile(File file)
@@ -265,6 +266,8 @@ public class FileVFS extends VFS
 			setWriteable(file.canWrite());
 			setLength(file.length());
 			setModified(file.lastModified());
+			//FIXME replace file.lastModified() with created, but did not find a created date method in file
+			setCreated(file.lastModified());
 		} //}}}
 
 		//{{{ getIcon() method
@@ -327,11 +330,24 @@ public class FileVFS extends VFS
 			fetchAttrs();
 			return modified;
 		} //}}}
+		
+		//{{{ getCreated() method
+		public long getCreated()
+		{
+			fetchAttrs();
+			return created;
+		} //}}}
 
 		//{{{ setModified() method
 		public void setModified(long modified)
 		{
 			this.modified = modified;
+		} //}}}
+		
+		//{{{ setCreated() method
+		public void setCreated(long created)
+		{
+			this.created = created;
 		} //}}}
 
 		private transient FileSystemView fsView;
