@@ -52,7 +52,7 @@ public class FileVFS extends VFS
 			| (OperatingSystem.isCaseInsensitiveFS()
 			? CASE_INSENSITIVE_CAP : 0),
 			new String[] { EA_TYPE, EA_SIZE, EA_STATUS,
-			EA_MODIFIED });
+			EA_MODIFIED, EA_CREATED });
 	} //}}}
 
 	//{{{ getParentOfPath() method
