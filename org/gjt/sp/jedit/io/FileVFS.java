@@ -29,6 +29,10 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.*;
 import java.awt.Component;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.text.*;
 import java.util.Date;
 import org.gjt.sp.jedit.*;
@@ -206,6 +210,7 @@ public class FileVFS extends VFS
 	public static class LocalFile extends VFSFile
 	{
 		private File file;
+		BasicFileAttributes attr;
 
 		// use system default short format
 		public static DateFormat DATE_FORMAT
@@ -270,8 +275,19 @@ public class FileVFS extends VFS
 			setWriteable(file.canWrite());
 			setLength(file.length());
 			setModified(file.lastModified());
-			//FIXME replace file.lastModified() with created, but did not find a created date method in file
-			setCreated(file.lastModified());
+			try {
+				// throw new IOException("test: hey hey testing exception");
+				Path pathz = Paths.get(path);
+				attr = Files.readAttributes(pathz, BasicFileAttributes.class);
+				// note: for macOS, creationTime is available for directory only. For file it is same as modified time.
+			    setCreated(attr.creationTime().toMillis());
+			//} catch (IOException e) {
+			} catch (Exception e) {
+				// in case the OS does not support creationTime, default to modified time
+			    setCreated(file.lastModified());
+		    }
+			
+			
 		} //}}}
 
 		//{{{ getIcon() method

@@ -449,13 +449,12 @@ vfs_attr_loop:	for(int i = 0; i < attrs.length; i++)
 					(Long)((FileVFS.LocalFile)file1).getModified())
 					.compareTo(
 					(Long)((FileVFS.LocalFile)file2).getModified());
-			// if the modified attribute is present, then we have a LocalFile
-			// TODO need a getCreated() like method
+			// sort by created date
 			else if(sortAttribute == VFS.EA_CREATED)
 				result = (
-					(Long)((FileVFS.LocalFile)file1).getModified())
+					(Long)((FileVFS.LocalFile)file1).getCreated())
 					.compareTo(
-					(Long)((FileVFS.LocalFile)file2).getModified());
+					(Long)((FileVFS.LocalFile)file2).getCreated());
 			// sort by size
 			else if(sortAttribute == VFS.EA_SIZE)
 				result = (
