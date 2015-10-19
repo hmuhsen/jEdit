@@ -449,6 +449,12 @@ vfs_attr_loop:	for(int i = 0; i < attrs.length; i++)
 					(Long)((FileVFS.LocalFile)file1).getModified())
 					.compareTo(
 					(Long)((FileVFS.LocalFile)file2).getModified());
+			// sort by created date
+			else if(sortAttribute == VFS.EA_CREATED)
+				result = (
+					(Long)((FileVFS.LocalFile)file1).getCreated())
+					.compareTo(
+					(Long)((FileVFS.LocalFile)file2).getCreated());
 			// sort by size
 			else if(sortAttribute == VFS.EA_SIZE)
 				result = (

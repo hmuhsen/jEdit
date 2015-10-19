@@ -29,6 +29,10 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.*;
 import java.awt.Component;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.text.*;
 import java.util.Date;
 import org.gjt.sp.jedit.*;
@@ -52,7 +56,7 @@ public class FileVFS extends VFS
 			| (OperatingSystem.isCaseInsensitiveFS()
 			? CASE_INSENSITIVE_CAP : 0),
 			new String[] { EA_TYPE, EA_SIZE, EA_STATUS,
-			EA_MODIFIED });
+			EA_MODIFIED, EA_CREATED });
 	} //}}}
 
 	//{{{ getParentOfPath() method
@@ -206,6 +210,7 @@ public class FileVFS extends VFS
 	public static class LocalFile extends VFSFile
 	{
 		private File file;
+		BasicFileAttributes attr;
 
 		// use system default short format
 		public static DateFormat DATE_FORMAT
@@ -216,6 +221,7 @@ public class FileVFS extends VFS
 		 */
 		@Deprecated
 		public long modified;
+		public long created;
 
 		//{{{ LocalFile() class
 		public LocalFile(File file)
@@ -243,6 +249,10 @@ public class FileVFS extends VFS
 			{
 				return DATE_FORMAT.format(new Date(modified));
 			}
+			else if (name.equals(EA_CREATED))
+			{
+				return DATE_FORMAT.format(new Date(created));
+			}
 			else
 			{
 				return super.getExtendedAttribute(name);
@@ -265,6 +275,19 @@ public class FileVFS extends VFS
 			setWriteable(file.canWrite());
 			setLength(file.length());
 			setModified(file.lastModified());
+			try {
+				// throw new IOException("test: hey hey testing exception");
+				Path pathz = Paths.get(path);
+				attr = Files.readAttributes(pathz, BasicFileAttributes.class);
+				// note: for macOS, creationTime is available for directory only. For file it is same as modified time.
+			    setCreated(attr.creationTime().toMillis());
+			//} catch (IOException e) {
+			} catch (Exception e) {
+				// in case the OS does not support creationTime, default to modified time
+			    setCreated(file.lastModified());
+		    }
+			
+			
 		} //}}}
 
 		//{{{ getIcon() method
@@ -327,11 +350,24 @@ public class FileVFS extends VFS
 			fetchAttrs();
 			return modified;
 		} //}}}
+		
+		//{{{ getCreated() method
+		public long getCreated()
+		{
+			fetchAttrs();
+			return created;
+		} //}}}
 
 		//{{{ setModified() method
 		public void setModified(long modified)
 		{
 			this.modified = modified;
+		} //}}}
+		
+		//{{{ setCreated() method
+		public void setCreated(long created)
+		{
+			this.created = created;
 		} //}}}
 
 		private transient FileSystemView fsView;
