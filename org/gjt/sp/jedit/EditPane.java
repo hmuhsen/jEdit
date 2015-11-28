@@ -223,6 +223,18 @@ public class EditPane extends JPanel implements EBComponent, BufferSetListener
 			runnable.run();
 	} //}}}
 
+	public void navBuffer(String navType)
+	{
+		Buffer buffer = null;
+		int index = bufferSet.indexOf(this.buffer);
+		if (navType.equals("next")){
+			buffer = bufferSet.getNextBuffer(index);
+		} else if (navType.equals("previous")){
+			buffer = bufferSet.getPreviousBuffer(index);
+		}
+		setBuffer(buffer);
+	}
+	
 	//{{{ prevBuffer() method
 	/**
 	 * Selects the previous buffer.
@@ -230,8 +242,7 @@ public class EditPane extends JPanel implements EBComponent, BufferSetListener
 	 */
 	public void prevBuffer()
 	{
-		Buffer buffer = bufferSet.getPreviousBuffer(bufferSet.indexOf(this.buffer));
-		setBuffer(buffer);
+		navBuffer("previous");
 	} //}}}
 
 	//{{{ nextBuffer() method
@@ -241,8 +252,7 @@ public class EditPane extends JPanel implements EBComponent, BufferSetListener
 	 */
 	public void nextBuffer()
 	{
-		Buffer buffer = bufferSet.getNextBuffer(bufferSet.indexOf(this.buffer));
-		setBuffer(buffer);
+		navBuffer("next");
 	} //}}}
 
 	//{{{ recentBuffer() method
