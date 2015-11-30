@@ -1022,9 +1022,15 @@
 	</CODE>
 </ACTION>
 
-<ACTION NAME="hide-scrollbars">
+<ACTION NAME="disable-scrollbars">
 	<CODE>
-		textArea.scrollDownLine();
+		textArea.disableScrollBars();
+	</CODE>
+</ACTION>
+
+<ACTION NAME="enable-scrollbars">
+	<CODE>
+		textArea.enableScrollBars();
 	</CODE>
 </ACTION>
 

@@ -277,8 +277,8 @@ edit=undo \
      %indent \
      %source \
      - \
-     hide-scrollbars \
-     - \
+     disable-scrollbars \
+     enable-scrollbars \
      
 edit.label=$Edit
 undo.label=$Undo
@@ -296,7 +296,8 @@ word-count.label=$Word Count...
 complete-word.label=Co$mplete Word
 expand-abbrev.label=E$xpand Abbreviation
 goto-line.label=$Go to Line...
-hide-scrollbars.label=$Hide Scrollbars
+disable-scrollbars.label=$Hide Scrollbars
+enable-scrollbars.label=$Show Scrollbars
 
 #{{{ More Clipboard menu
 clipboard=cut-append \
