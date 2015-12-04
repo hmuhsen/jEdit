@@ -705,6 +705,24 @@ public abstract class TextArea extends JComponent
 		setFirstLine(getFirstLine() - getVisibleLines()
 			+ (lastLinePartial ? 1 : 0));
 	} //}}}
+	
+	//{{{ disableScrollBars() method
+		/**
+		 * disables Scroll Bars
+		 */
+	public void disableScrollBars(){
+		vertical.setEnabled(false);
+		horizontal.setEnabled(false);
+	} //}}}
+	
+	//{{{ enableScrollBars() method
+		/**
+		* enables Scroll Bars
+		*/
+	public void enableScrollBars(){
+		vertical.setEnabled(true);
+		horizontal.setEnabled(true);
+	} //}}}
 
 	//{{{ scrollDownLine() method
 	/**
